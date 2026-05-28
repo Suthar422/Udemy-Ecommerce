@@ -6,7 +6,7 @@ spring:
     name: sportcenter
 
   datasource:
-    url: jabc:mysql://localhost:3306/sportcenter
+    url: jabc:mysql://localhost:3306/sports-center
     username: root
     password: root
 

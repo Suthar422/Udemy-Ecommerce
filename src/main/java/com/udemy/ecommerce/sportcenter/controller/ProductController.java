@@ -1,0 +1,59 @@
+package com.udemy.ecommerce.sportcenter.controller;
+
+import com.udemy.ecommerce.sportcenter.model.BrandResponse;
+import com.udemy.ecommerce.sportcenter.model.ProductResponse;
+import com.udemy.ecommerce.sportcenter.model.TypeResponse;
+import com.udemy.ecommerce.sportcenter.service.BrandService;
+import com.udemy.ecommerce.sportcenter.service.ProductService;
+import com.udemy.ecommerce.sportcenter.service.TypeService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/products")
+public class ProductController {
+
+    private final ProductService productService;
+    private final BrandService brandService;
+    private final TypeService typeService;
+
+
+    public ProductController(ProductService productService, BrandService brandService,  TypeService typeService) {
+        this.productService = productService;
+        this.brandService = brandService;
+        this.typeService = typeService;
+
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable("id") Integer productId){
+        ProductResponse productResponse = productService.getProductById(productId);
+        return new ResponseEntity<>(productResponse, HttpStatus.OK);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<ProductResponse>> getProducts(){
+        List<ProductResponse> productResponse = productService.getProducts();
+        return new ResponseEntity<>(productResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/brands")
+    public ResponseEntity<List<BrandResponse>> getBrands(){
+        List<BrandResponse> brandResponses = brandService.getAllBrands();
+        return new ResponseEntity<>(brandResponses, HttpStatus.OK);
+    }
+
+    @GetMapping("/types")
+    public ResponseEntity<List<TypeResponse>> getTypes(){
+        List<TypeResponse> typeResponses = typeService.getAllTypes();
+        return new ResponseEntity<>(typeResponses, HttpStatus.OK);
+    }
+
+
+}
