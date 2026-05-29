@@ -4,6 +4,8 @@ import com.udemy.ecommerce.sportcenter.entity.Product;
 import com.udemy.ecommerce.sportcenter.model.ProductResponse;
 import com.udemy.ecommerce.sportcenter.repository.ProductRepository;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,15 +32,13 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<ProductResponse> getProducts() {
+    public Page<ProductResponse> getProducts(Pageable pageable) {
         log.info("Fetching All Products");
 
-        List<Product> productList = productRepository.findAll();
+        Page<Product> productPage = productRepository.findAll(pageable);
         //map
-        List<ProductResponse> productResponses = productList.stream()
-                .map(this::convertToProductResponse)
-                .toList();
-
+        Page<ProductResponse> productResponses = productPage
+                .map(this::convertToProductResponse);
         log.info("Fetched All Products");
         return productResponses;
     }
