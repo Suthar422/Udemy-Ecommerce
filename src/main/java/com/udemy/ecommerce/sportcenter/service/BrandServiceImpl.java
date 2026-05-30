@@ -26,13 +26,14 @@ public class BrandServiceImpl implements BrandService{
         log.info("Fetching All Brands !!!");
         //Fetch Brands
         List<Brand> brandList = brandRepository.findAll();
-
+        System.out.println(brandList);
         //now use stream operator to map with Response
         List<BrandResponse> brandResponses = brandList.stream()
                 .map(this::convertToBrandResponse)
                 .toList();
 
-        log.info("Fetching All Brands!!!");
+        log.info("Fetched All Brands!!!");
+        System.out.println(brandResponses);
         return brandResponses;
     }
 

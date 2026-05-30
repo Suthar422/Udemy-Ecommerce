@@ -1,14 +1,13 @@
 package com.udemy.ecommerce.sportcenter.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
-@Table(name="Product")
-@Data
+@Table(name="product")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -29,9 +28,11 @@ public class Product {
     //many product can associate with one brand
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ProductBrandId", referencedColumnName = "Id")
+    @JsonBackReference
     private Brand brand;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ProductTypeId", referencedColumnName = "Id")
+    @JsonBackReference
     private Type type;
 }

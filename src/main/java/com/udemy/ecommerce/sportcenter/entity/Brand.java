@@ -1,16 +1,15 @@
 package com.udemy.ecommerce.sportcenter.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
-@Table(name="Brand")
-@Data
+@Table(name="brand")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -24,5 +23,6 @@ public class Brand {
 
     //One brand can have many products
     @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Product> products;
 }

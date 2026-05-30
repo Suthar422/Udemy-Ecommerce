@@ -5,18 +5,19 @@ spring:
   application:
     name: sportcenter
 
+
   datasource:
-    url: jabc:mysql://localhost:3306/sports-center
+    url: jdbc:mysql://localhost:3306/sports-center
     username: root
-    password: root
+    password: password
 
   jpa:
     hibernate:
       ddl-auto: update
       naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategySnakeCaseImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQLBDialect
+        dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
 

@@ -7,7 +7,7 @@ services:
     container_name: "sports-center-mysql"
     environment:
       MYSQL_ROOT_PASSWORD: 'password'
-      MYSQL_DATABASE: sports-center
+      MYSQL_DATABASE: 'sports-center'
       MYSQL_USER: user
       MYSQL_PASSWORD: root
     ports:
