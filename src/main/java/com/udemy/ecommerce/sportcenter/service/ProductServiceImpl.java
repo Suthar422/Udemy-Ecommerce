@@ -6,10 +6,13 @@ import com.udemy.ecommerce.sportcenter.repository.ProductRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.PredicateSpecification;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static org.springframework.data.jpa.domain.Specification.where;
 
 @Service
 @Log4j2
@@ -36,8 +39,15 @@ public class ProductServiceImpl implements ProductService{
     public Page<ProductResponse> getProducts(Pageable pageable, Integer brandId, Integer typeId, String keyword) {
         log.info("Fetching All Products");
 
+        // Start with Specification null safely
         //fetching from DB
-        Specification<Product> spec = Specification.where((Specification<Product>) null);
+        /*
+        “true predicate” approach (cb.conjunction()) so you don’t have to deal with null at all. This way,
+         you start with a Specification that always evaluates to true and then chain conditions dynamically.
+         */
+
+        Specification<Product> spec = (root, query, criteriaBuilder) -> criteriaBuilder.conjunction();
+
 
         if (brandId!=null){
             spec = spec.and((root, query, criteriaBuilder)->
