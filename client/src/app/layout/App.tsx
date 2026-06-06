@@ -2,6 +2,7 @@ import Catalog from "../../features/catalog/Catalog.tsx";
 import {Container, createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import Header from "./Header.tsx";
 import {useState} from "react";
+import {Outlet} from "react-router-dom";
 
 function App() {
     //define a state variable products, using useState
@@ -24,6 +25,7 @@ function App() {
       <Header darkMode={darkMode} handleThemeChange={handleThemeChange}/>
       <Container sx={{paddingTop: "65px"}}>
           <Catalog/>
+          <Outlet/>
       </Container>
       </ThemeProvider>
   )
