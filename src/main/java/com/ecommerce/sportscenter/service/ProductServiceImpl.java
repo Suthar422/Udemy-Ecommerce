@@ -35,7 +35,14 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Page<ProductResponse> getProducts(Pageable pageable, Integer brandId, Integer typeId, String keyword) {
-        Specification<Product> spec = Specification.where(null);
+        // Start with Specification null safely
+        //fetching from DB
+        /*
+        “true predicate” approach (cb.conjunction()) so you don’t have to deal with null at all. This way,
+         you start with a Specification that always evaluates to true and then chain conditions dynamically.
+         */
+
+        Specification<Product> spec = (root, query, criteriaBuilder) -> criteriaBuilder.conjunction();
 
         if (brandId != null) {
             spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("brand").get("id"), brandId));
